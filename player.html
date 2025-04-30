@@ -40,66 +40,15 @@
 </body>
 </html>
 <script>
-  const allowedParent = "https://esportspk.site";
+  // Check if the page is inside an iframe
+  if (window.top !== window.self) {
+    // Allow only if the iframe is from esportspk.site
+    const allowedDomain = "esportspk.site";
 
-  if (window !== window.top) {
-    // This page is inside an iframe
-    if (document.referrer.startsWith(allowedParent)) {
-      // Allowed domain - do nothing
-    } else {
-      // Not allowed - block content
-      document.body.innerHTML = "<h1>Embedding not allowed from this domain.</h1>";
-    }
-  }
-</script>
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Secure Page</title>
-  <script>
-    // Disable right-click
-    document.addEventListener('contextmenu', event => event.preventDefault());
-
-    // Disable F12, Ctrl+U, Ctrl+Shift+I
-    document.addEventListener('keydown', function(event) {
-      if (
-        event.key === "F12" ||
-        (event.ctrlKey && event.shiftKey && event.key === 'I') ||
-        (event.ctrlKey && event.key === 'U') ||
-        (event.ctrlKey && event.shiftKey && event.key === 'J')
-      ) {
-        event.preventDefault();
-      }
-    });
-  </script>
-</head>
-<body>
-  <h1>Welcome to Esports PK</h1>
-  <p>This content is protected.</p>
-</body>
-</html>
-<script>
-  const allowedParent = "https://esportspk.site";
-
-  if (window !== window.top) {
-    // This page is inside an iframe
-    if (document.referrer.startsWith(allowedParent)) {
-      // Allowed domain - do nothing
-    } else {
-      // Not allowed - block content
-      document.body.innerHTML = "<h1>Embedding not allowed from this domain.</h1>";
-    }
-  }
-</script>
-<script>
-  const allowedParent = "https://esportspk.site";
-  if (window !== window.top) {
-    // This page is inside an iframe
-    if (document.referrer.startsWith(allowedParent)) {
-      // Allowed domain - do nothing
-    } else {
-      // Not allowed - block content
-      document.body.innerHTML = "<h1>Embedding not allowed from this domain.</h1>";
+    if (document.referrer.indexOf(allowedDomain) === -1) {
+      // If not from allowed domain, block content
+      document.body.innerHTML = "<h1>Access Denied</h1><p>This page cannot be embedded on this domain.</p>";
+      throw new Error("Blocked unauthorized iframe embedding.");
     }
   }
 </script>
