@@ -1,6 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>Protected Page</title>
+</head>
+<body>
+  <h1>Welcome</h1>
+
+  <script>
+    (function () {
+      const allowedOrigin = "https://esportspk.site";
+      if (window.top !== window.self) {
+        try {
+          const parentOrigins = document.location.ancestorOrigins;
+          if (!parentOrigins || !parentOrigins[0] || !parentOrigins[0].includes(allowedOrigin)) {
+            window.top.location = window.location.href;
+          }
+        } catch (e) {
+          window.top.location = window.location.href;
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
     <title>Stream Player</title>
     <style>
         body { margin: 0; background-color: #000; }
@@ -39,13 +64,3 @@
 
 </body>
 </html>
-<script>
-  // Allow only https://esportspk.site to embed this page
-  if (window.top !== window.self) {
-    // Page is in an iframe
-    const allowedHost = "esportspk.site";
-    if (!document.referrer.includes(allowedHost)) {
-      window.top.location = window.location.href; // Break out of iframe
-    }
-  }
-</script>
