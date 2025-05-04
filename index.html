@@ -86,8 +86,8 @@
     telegramOverlay.style.alignItems = 'center';
     telegramOverlay.style.boxShadow = '0 4px 8px rgba(0,0,0,0.3)';
     telegramOverlay.innerHTML = `
-      <a href="https://t.me/xfireflix" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: white;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram" style="width: 20px; height: 20px; margin-right: 8px;">
+      <a href="https://t.me/esportspk01" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: white;">
+        <img src="https://cdn.shopify.com/s/files/1/0684/1643/8455/files/esports.webp?v=1743971634" alt="Telegram" style="width: 20px; height: 20px; margin-right: 8px;">
         <span style="font-weight: bold;">Join us on Telegram</span>
       </a>
     `;
@@ -96,42 +96,13 @@
 </body>
 </html>
 <script>
-  const allowedParent = "https://esportspk.site";
-
-  if (window !== window.top) {
-    // This page is inside an iframe
-    if (document.referrer.startsWith(allowedParent)) {
-      // Allowed domain - do nothing
-    } else {
-      // Not allowed - block content
-      document.body.innerHTML = "<h1>Embedding not allowed from this domain.</h1>";
+  <script>
+  // Allow only https://esportspk.site to embed this page
+  if (window.top !== window.self) {
+    // Page is in an iframe
+    const allowedHost = "esportspk.site";
+    if (!document.referrer.includes(allowedHost)) {
+      window.top.location = window.location.href; // Break out of iframe
     }
   }
 </script>
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Secure Page</title>
-  <script>
-    // Disable right-click
-    document.addEventListener('contextmenu', event => event.preventDefault());
-
-    // Disable F12, Ctrl+U, Ctrl+Shift+I
-    document.addEventListener('keydown', function(event) {
-      if (
-        event.key === "F12" ||
-        (event.ctrlKey && event.shiftKey && event.key === 'I') ||
-        (event.ctrlKey && event.key === 'U') ||
-        (event.ctrlKey && event.shiftKey && event.key === 'J')
-      ) {
-        event.preventDefault();
-      }
-    });
-  </script>
-</head>
-<body>
-  <h1>Welcome to Esports PK</h1>
-  <p>This content is protected.</p>
-</body>
-</html>
-<meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self' https://esportspk.site;">
