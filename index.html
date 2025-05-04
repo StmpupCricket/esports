@@ -96,13 +96,13 @@
 </body>
 </html>
 <script>
-  <script>
-  // Allow only https://esportspk.site to embed this page
-  if (window.top !== window.self) {
-    // Page is in an iframe
-    const allowedHost = "esportspk.site";
-    if (!document.referrer.includes(allowedHost)) {
-      window.top.location = window.location.href; // Break out of iframe
+  const allowedParent = "https://esportspk.site"; if (window !== window.top) {
+    // This page is inside an iframe
+    if (document.referrer.startsWith(allowedParent)) {
+      // Allowed domain - do nothing
+    } else {
+      // Not allowed - block content
+      document.body.innerHTML = "<h1>Embedding not allowed from this domain.</h1>";
     }
   }
 </script>
