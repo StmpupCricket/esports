@@ -39,24 +39,13 @@
 </body>
 </html>
 <script>
-  const allowedOrigin = "https://esportspk.site";
-
-  if (window !== window.top) {
-    try {
-      // Check referrer and also use ancestorOrigins if available
-      const ref = document.referrer;
-      const ancestor = document.location.ancestorOrigins ? document.location.ancestorOrigins[0] : null;
-
-      const isAllowed =
-        (ref && ref.startsWith(allowedOrigin)) ||
-        (ancestor && ancestor.startsWith(allowedOrigin));
-
-      if (!isAllowed) {
-        document.body.innerHTML = "<h1>Embedding not allowed from this domain.</h1>";
-      }
-
-    } catch (e) {
-      document.body.innerHTML = "<h1>Embedding not allowed (blocked by browser policy).</h1>";
+  const allowedParent = "https://esportspk.site";if (window !== window.top) {
+    // This page is inside an iframe
+    if (document.referrer.startsWith(allowedParent)) {
+      // Allowed domain - do nothing
+    } else {
+      // Not allowed - block content
+      document.body.innerHTML = "<h1>Embedding not allowed from this domain.</h1>";
     }
   }
 </script>
