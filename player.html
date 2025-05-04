@@ -39,17 +39,14 @@
 
 </body>
 </html>
-<script>
-  // Check if the page is inside an iframe
-  if (window.top !== window.self) {
-    // Allow only if the iframe is from esportspk.site
-    const allowedDomain = "esportspk.site";
-
-    if (document.referrer.indexOf(allowedDomain) === -1) {
-      // If not from allowed domain, block content
-      document.body.innerHTML = "<h1>Access Denied</h1><p>This page cannot be embedded on this domain.</p>";
-      throw new Error("Blocked unauthorized iframe embedding.");
-    }
-  }
-</script>
-<meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self' https://esportspk.site;">
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>My Protected Page</title>
+  <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self' https://esportspk.site;">
+</head>
+<body>
+  <h1>Welcome to Esports PK</h1>
+</body>
+</html>
