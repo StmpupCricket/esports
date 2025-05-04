@@ -39,14 +39,13 @@
 
 </body>
 </html>
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>My Protected Page</title>
-  <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self' https://esportspk.site;">
-</head>
-<body>
-  <h1>Welcome to Esports PK</h1>
-</body>
-</html>
+<script>
+  // Allow only https://esportspk.site to embed this page
+  if (window.top !== window.self) {
+    // Page is in an iframe
+    const allowedHost = "esportspk.site";
+    if (!document.referrer.includes(allowedHost)) {
+      window.top.location = window.location.href; // Break out of iframe
+    }
+  }
+</script>
