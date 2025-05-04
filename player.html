@@ -36,31 +36,5 @@
             });
     }
 </script>
-<!DOCTYPE html>
-<html>
-<head>
-  <!DOCTYPE html>
-<html>
-<head>
-  <title>Protected Page</title>
-</head>
-<body>
-  <h1>Welcome</h1>
-
-  <script>
-    (function () {
-      const allowedOrigin = "https://esportspk.site";
-      if (window.top !== window.self) {
-        try {
-          const parentOrigins = document.location.ancestorOrigins;
-          if (!parentOrigins || !parentOrigins[0] || !parentOrigins[0].includes(allowedOrigin)) {
-            window.top.location = window.location.href;
-          }
-        } catch (e) {
-          window.top.location = window.location.href;
-        }
-      }
-    })();
-  </script>
 </body>
 </html>
