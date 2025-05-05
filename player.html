@@ -38,3 +38,46 @@
 </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>My Protected Page</title>
+  <style>
+    body.blocked {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #000;
+      color: red;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Welcome to My Official Page</h1>
+
+  <script>
+    (function () {
+      const allowedDomain = "esportspk.site";
+
+      if (window !== window.top) {
+        try {
+          const referrer = new URL(document.referrer);
+          if (!referrer.hostname.endsWith(allowedDomain)) {
+            document.body.className = "blocked";
+            document.body.innerHTML = "<h1>Embedding not allowed from this domain.</h1>";
+          }
+        } catch (e) {
+          // If referrer is empty or invalid, block it
+          document.body.className = "blocked";
+          document.body.innerHTML = "<h1>Embedding not allowed.</h1>";
+        }
+      }
+    })();
+  </script>
+
+</body>
+</html>
