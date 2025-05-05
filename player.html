@@ -81,3 +81,35 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iFrame Protection</title>
+    <script>
+        // Client-side protection against framing
+        if (window !== window.top || window.self !== window.top) {
+            // Check if the frame is from the specific domain you want to block
+            try {
+                if (window.self !== window.top && document.referrer.indexOf("cricstream4u.github.io") > -1) {
+                    // Redirect the framed page to your original site
+                    window.top.location.href = "https://yourwebsite.com"; // Replace with your actual domain
+                }
+            } catch (e) {
+                // If we can't access the parent, just break out of the frame
+                window.top.location.href = window.self.location.href;
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Your website content here -->
+    
+    <!-- Server-side protection would be even more effective -->
+    <!-- Consider adding these headers via your server configuration:
+         X-Frame-Options: DENY
+         Content-Security-Policy: frame-ancestors 'none'
+    -->
+</body>
+</html>
