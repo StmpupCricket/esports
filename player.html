@@ -39,36 +39,56 @@
 </body>
 </html>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Embed Blocker</title>
-    <script type="text/javascript">
-        // Block iframes/embeds from all domains except esportspk.site
-        window.onload = function() {
-            var iframes = document.getElementsByTagName('iframe');
-            var embeds = document.getElementsByTagName('embed');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embed Protected Page</title>
+    
+    <!-- Method 1: X-Frame-Options (legacy but widely supported) -->
+    <meta http-equiv="X-Frame-Options" content="allow-from https://esportspk.site/">
+    
+    <!-- Method 2: Content Security Policy (modern standard) -->
+    <meta http-equiv="Content-Security-Policy" content="frame-ancestors https://esportspk.site/;">
+    
+    <!-- JavaScript fallback protection -->
+    <script>
+        // Check if the page is being framed
+        (function() {
+            if (window === window.top) return; // Not in a frame
             
-            // Check all iframes
-            for (var i = 0; i < iframes.length; i++) {
-                var src = iframes[i].src;
-                if (!src.match(/^https:\/\/esportspk\.site(\/|$)/i)) {
-                    iframes[i].parentNode.removeChild(iframes[i]);
-                    console.log('Blocked iframe from: ' + src);
+            try {
+                const allowedDomain = "esportspk.site";
+                const blockedDomain = "esportspk.github.io";
+                
+                // Check parent URL
+                const parentHost = window.top.location.hostname;
+                
+                // Block if parent is from blocked domain or not allowed domain
+                if (parentHost.includes(blockedDomain) || parentHost !== allowedDomain) {
+                    // Redirect parent to your site
+                    window.top.location.href = "https://esportspk.site/";
                 }
+            } catch (e) {
+                // If we can't access parent (cross-origin), show error
+                document.body.innerHTML = `
+                    <h1>Embedding Not Allowed</h1>
+                    <p>This page cannot be embedded from external websites.</p>
+                    <p>Please visit <a href="https://esportspk.site/">https://esportspk.site/</a> directly.</p>
+                `;
+                document.body.style.cssText = `
+                    font-family: Arial, sans-serif;
+                    text-align: center;
+                    padding: 50px;
+                    color: #333;
+                `;
             }
-            
-            // Check all embeds
-            for (var j = 0; j < embeds.length; j++) {
-                var src = embeds[j].src;
-                if (!src.match(/^https:\/\/esportspk\.site(\/|$)/i)) {
-                    embeds[j].parentNode.removeChild(embeds[j]);
-                    console.log('Blocked embed from: ' + src);
-                }
-            }
-        };
+        })();
     </script>
 </head>
 <body>
-    <!-- Your website content here -->
+    <!-- Your normal page content here -->
+    <h1>Welcome to Our Content</h1>
+    <p>This page can only be embedded on https://esportspk.site/</p>
 </body>
 </html>
