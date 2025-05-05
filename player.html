@@ -38,16 +38,47 @@
 </script>
 </body>
 </html>
-<script>
-  const allowedParent = "esportspk.site";
-  if (window !== window.top) {
-    // Page is inside an iframe
-    const referrer = new URL(document.referrer);
-    if (referrer.hostname.endsWith(allowedParent)) {
-      // Allowed
-    } else {
-      // Block
-      document.body.innerHTML = "<h1>Embedding not allowed from this domain.</h1>";
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ESports Player</title>
+  <style>
+    body.blocked {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: sans-serif;
+      background-color: #000;
+      color: red;
     }
-  }
-          </script>
+  </style>
+</head>
+<body>
+
+  <!-- Your actual content -->
+  <h1>Welcome to ESports Player Page</h1>
+
+  <script>
+    (function() {
+      const allowedDomain = "esportspk.site";
+
+      if (window !== window.top) {
+        try {
+          const referrer = new URL(document.referrer);
+          if (!referrer.hostname.endsWith(allowedDomain)) {
+            document.body.className = "blocked";
+            document.body.innerHTML = "<h1>Embedding not allowed from this domain.</h1>";
+          }
+        } catch (e) {
+          // If referrer is invalid or empty, block it
+          document.body.className = "blocked";
+          document.body.innerHTML = "<h1>Embedding not allowed.</h1>";
+        }
+      }
+    })();
+  </script>
+
+</body>
+</html>
