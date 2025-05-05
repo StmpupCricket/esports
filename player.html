@@ -41,44 +41,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>ESports Player</title>
-  <style>
-    body.blocked {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      font-family: sans-serif;
-      background-color: #000;
-      color: red;
-    }
-  </style>
+    <title>Embed Blocker</title>
+    <script type="text/javascript">
+        // Block iframes/embeds from all domains except esportspk.site
+        window.onload = function() {
+            var iframes = document.getElementsByTagName('iframe');
+            var embeds = document.getElementsByTagName('embed');
+            
+            // Check all iframes
+            for (var i = 0; i < iframes.length; i++) {
+                var src = iframes[i].src;
+                if (!src.match(/^https:\/\/esportspk\.site(\/|$)/i)) {
+                    iframes[i].parentNode.removeChild(iframes[i]);
+                    console.log('Blocked iframe from: ' + src);
+                }
+            }
+            
+            // Check all embeds
+            for (var j = 0; j < embeds.length; j++) {
+                var src = embeds[j].src;
+                if (!src.match(/^https:\/\/esportspk\.site(\/|$)/i)) {
+                    embeds[j].parentNode.removeChild(embeds[j]);
+                    console.log('Blocked embed from: ' + src);
+                }
+            }
+        };
+    </script>
 </head>
 <body>
-
-  <!-- Your actual content -->
-  <h1>Welcome to ESports Player Page</h1>
-
-  <script>
-    (function() {
-      const allowedDomain = "esportspk.site";
-
-      if (window !== window.top) {
-        try {
-          const referrer = new URL(document.referrer);
-          if (!referrer.hostname.endsWith(allowedDomain)) {
-            document.body.className = "blocked";
-            document.body.innerHTML = "<h1>Embedding not allowed from this domain.</h1>";
-          }
-        } catch (e) {
-          // If referrer is invalid or empty, block it
-          document.body.className = "blocked";
-          document.body.innerHTML = "<h1>Embedding not allowed.</h1>";
-        }
-      }
-    })();
-  </script>
-
+    <!-- Your website content here -->
 </body>
 </html>
