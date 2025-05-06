@@ -113,3 +113,37 @@
     -->
 </body>
 </html>
+<script>
+  // اجازت یافتہ ڈومین
+  const allowedReferrer = "https://esportspk.site";
+
+  // اگر current window کسی اور ویب سائٹ سے آیا ہو
+  if (document.referrer && !document.referrer.startsWith(allowedReferrer)) {
+    // یوزر کو بلاک کرنے کے لیے کوئی ایکشن لیں
+    document.body.innerHTML = "<h2>Access Denied</h2>";
+  }
+</script>
+
+<!-- آپ کا باقی HTML مواد یہاں آئے گا -->
+<h1>Welcome to my protected content</h1>
+<script>
+  // اجازت دی گئی iFrame origin صرف espoertspk.site ہے
+  const allowedOrigin = "https://esportspk.site";
+
+  // چیک کریں اگر یہ فائل iFrame میں لوڈ ہوئی ہے یا نہیں
+  if (window.top === window.self) {
+    // براہ راست کھولا گیا ہے — بلاک کر دو
+    document.body.innerHTML = "<h2>Access Denied - Not allowed to open directly</h2>";
+  } else {
+    // چیک کریں کہ iFrame کہاں سے آیا ہے
+    if (document.referrer && !document.referrer.startsWith(allowedOrigin)) {
+      document.body.innerHTML = "<h2>Access Denied - Unauthorized iFrame</h2>";
+    }
+  }
+</script>
+
+<!-- باقی اصل مواد -->
+<h1>Player Content</h1>
+<video controls autoplay>
+  <source src="YOUR_VIDEO_URL" type="application/x-mpegURL">
+</video>
