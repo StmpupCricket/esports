@@ -84,27 +84,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Restricted Player</title>
+    <title>Player</title>
     <script>
-        // Check if the current website is esportspk.site
-        if (window.location.hostname !== "esportspk.site") {
-            // If not, block access
+        // Check if the page is loaded inside an iframe AND the parent is esportspk.site
+        if (window === window.top || window.parent.location.hostname !== "esportspk.site") {
+            // If NOT loaded in an iframe OR parent is not esportspk.site, BLOCK ACCESS
             document.body.innerHTML = `
                 <h1 style="text-align:center;color:red;margin-top:50px;">
-                    This player can only be accessed on <a href="https://esportspk.site">esportspk.site</a>
+                    This player can only be embedded on <a href="https://esportspk.site">esportspk.site</a>
                 </h1>
             `;
-            // Optionally, redirect to the main site
-            // window.location.href = "https://esportspk.site";
+            // Optional: Redirect after some time
+            // setTimeout(() => { window.location.href = "https://esportspk.site"; }, 3000);
         }
     </script>
 </head>
 <body>
-    <!-- Only show the iframe if on esportspk.site -->
-    <iframe 
-        src="https://esportspk.github.io/esports/player.html?id=starhindi" 
-        style="width:100%; height:100vh; border:none;"
-        allowfullscreen
-    ></iframe>
+    <!-- Your player content here -->
+    <div id="player">Player Content (Works only in esportspk.site iframe)</div>
 </body>
 </html>
