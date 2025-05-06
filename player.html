@@ -82,62 +82,29 @@
 </body>
 </html>
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iFrame Protection</title>
-    <script>
-        // Client-side protection against framing
-        if (window !== window.top || window.self !== window.top) {
-            // Check if the frame is from the specific domain you want to block
-            try {
-                if (window.self !== window.top && document.referrer.indexOf("cricstream4u.github.io") > -1) {
-                    // Redirect the framed page to your original site
-                    window.top.location.href = "https://yourwebsite.com"; // Replace with your actual domain
-                }
-            } catch (e) {
-                // If we can't access the parent, just break out of the frame
-                window.top.location.href = window.self.location.href;
-            }
-        }
-    </script>
-</head>
-<body>
-    <!-- Your website content here -->
-    
-    <!-- Server-side protection would be even more effective -->
-    <!-- Consider adding these headers via your server configuration:
-         X-Frame-Options: DENY
-         Content-Security-Policy: frame-ancestors 'none'
-    -->
-</body>
-</html>
-<!DOCTYPE html>
 <html>
 <head>
-    <title>Restricted Content</title>
+    <title>Restricted Player</title>
     <script>
-        // Check if the current domain is esportspk.site
+        // Check if the current website is esportspk.site
         if (window.location.hostname !== "esportspk.site") {
-            // Redirect to esportspk.site or show error
-            document.body.innerHTML = '<h1 style="text-align:center;color:red;">This content is only accessible on https://esportspk.site</h1>';
-            // Alternatively, you can redirect:
+            // If not, block access
+            document.body.innerHTML = `
+                <h1 style="text-align:center;color:red;margin-top:50px;">
+                    This player can only be accessed on <a href="https://esportspk.site">esportspk.site</a>
+                </h1>
+            `;
+            // Optionally, redirect to the main site
             // window.location.href = "https://esportspk.site";
         }
     </script>
 </head>
 <body>
-    <!-- Your content here -->
-    <iframe src="YOUR_CONTENT_URL_HERE" style="width:100%; height:100vh; border:none;"></iframe>
-    
-    <script>
-        // Double check on load
-        window.addEventListener('load', function() {
-            if (window.location.hostname !== "esportspk.site") {
-                document.body.innerHTML = '<h1 style="text-align:center;color:red;">Access denied. This content only works on https://esportspk.site</h1>';
-            }
-        });
-    </script>
+    <!-- Only show the iframe if on esportspk.site -->
+    <iframe 
+        src="https://esportspk.github.io/esports/player.html?id=starhindi" 
+        style="width:100%; height:100vh; border:none;"
+        allowfullscreen
+    ></iframe>
 </body>
 </html>
