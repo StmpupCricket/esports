@@ -84,57 +84,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Player Access Control</title>
+    <title>Player</title>
     <script>
-        // Strict validation - only works in iframe on esportspk.site
-        (function() {
-            const allowedDomain = "esportspk.site";
-            const isEmbedded = window !== window.top;
-            const parentValid = isEmbedded && 
-                               window.parent.location.hostname === allowedDomain;
+        // Check if the page is loaded inside an iframe AND the parent is esportspk.site
+        if (window === window.top || window.parent.location.hostname !== "esportspk.site") {
+            // If NOT loaded in an iframe OR parent is not esportspk.site, BLOCK ACCESS
+            document.body.innerHTML = `
+                <h1 style="text-align:center;color:red;margin-top:50px;">
+                    This player can only be embedded on <a href="https://esportspk.site">esportspk.site</a>
+                </h1>
+            `;
             
-            if (!parentValid) {
-                // Completely break functionality if not properly embedded
-                document.write(`
-                    <style>
-                        body { 
-                            background: #000; 
-                            color: red; 
-                            font-family: Arial;
-                            text-align: center;
-                            padding-top: 50px;
-                        }
-                        a { color: white; }
-                    </style>
-                    <h1>ACCESS DENIED</h1>
-                    <p>This player can only be used when embedded on<br>
-                    <a href="https://${allowedDomain}">${allowedDomain}</a></p>
-                    <script>
-                        // Prevent any further execution
-                        window.stop();
-                        document.addEventListener('DOMContentLoaded', function() {
-                            document.body.innerHTML = '';
-                        });
-                        setTimeout(function() {
-                            window.location.href = "https://${allowedDomain}";
-                        }, 3000);
-                    <\/script>
-                `);
-                throw new Error("Invalid embedding domain");
-            }
-            
-            // Only load player scripts if validation passes
-            window.addEventListener('DOMContentLoaded', function() {
-                // Your actual player initialization code here
-                console.log("Player loaded successfully");
-            });
-        })();
+        }
     </script>
 </head>
 <body>
-    <!-- Player content will only appear when properly embedded -->
-    <div id="player-container">
-        <!-- Your player HTML/JS will go here -->
-    </div>
+    <!-- Your player content here -->
+    <div id="player">Player Content (Works only in esportspk.site iframe)</div>
 </body>
 </html>
